@@ -1,0 +1,132 @@
+Crea la cartella docs/ nella root del monorepo con la struttura
+completa per Mintlify. Tutti i file sono MDX salvo mint.json.
+
+---
+
+## FILE: docs/mint.json
+
+{
+  "name": "Winbi",
+  "logo": {
+    "light": "/logo/light.svg",
+    "dark": "/logo/dark.svg"
+  },
+  "favicon": "/favicon.svg",
+  "colors": {
+    "primary": "#0F6E56",
+    "light": "#1D9E75",
+    "dark": "#085041"
+  },
+  "topbarLinks": [
+    { "name": "winbi.it", "url": "https://winbi.it" }
+  ],
+  "topbarCtaButton": {
+    "name": "Prova gratis",
+    "url": "https://winbi.it/signup"
+  },
+  "anchors": [
+    {
+      "name": "API Reference",
+      "icon": "code",
+      "url": "api-reference"
+    }
+  ],
+  "navigation": [
+    {
+      "group": "Introduzione",
+      "pages": ["introduction", "quickstart", "authentication"]
+    },
+    {
+      "group": "Stream obbligatori",
+      "pages": [
+        "streams/overview",
+        "streams/O1-zones",
+        "streams/O2-taxonomy",
+        "streams/O3-products",
+        "streams/O4-sales"
+      ]
+    },
+    {
+      "group": "Stream opzionali",
+      "pages": [
+        "streams/S1-receipts",
+        "streams/S3-promotions"
+      ]
+    },
+    {
+      "group": "SDK Python",
+      "pages": [
+        "sdk/python",
+        "sdk/examples"
+      ]
+    },
+    {
+      "group": "API Reference",
+      "pages": ["api-reference/overview"]
+    },
+    {
+      "group": "Supporto",
+      "pages": ["errors"]
+    }
+  ],
+  "footerSocials": {}
+}
+
+---
+
+## FILE: docs/introduction.mdx
+
+---
+title: Benvenuto in Winbi
+description: Documentazione tecnica per sviluppatori e integratori
+---
+
+Winbi è una piattaforma SaaS di retail intelligence. Questa
+documentazione è rivolta agli sviluppatori che integrano i sistemi
+gestionali dei clienti con la piattaforma Winbi via API REST.
+
+## Come funziona l'integrazione
+
+Il flusso di integrazione è semplice:
+
+1. Il cliente si registra su winbi.it e ottiene una API key
+2. Il tuo sistema invia i dati normalizzati nel formato Winbi
+3. Winbi elabora i dati e attiva i layer analitici disponibili
+
+I dati vengono inviati già normalizzati nel formato Winbi.
+L'onere della mappatura dal gestionale sorgente è sul connettore
+— Winbi non fa parsing di formati esterni.
+
+## Stream di dati
+
+Gli stream sono divisi in obbligatori e opzionali.
+Ogni stream opzionale attiva layer analitici aggiuntivi.
+
+| Stream | Tipo | Layer attivato |
+|--------|------|----------------|
+| O1 — Zone | Obbligatorio | Base |
+| O2 — Tassonomia | Obbligatorio | Base |
+| O3 — Prodotti | Obbligatorio | Base |
+| O4 — Vendite giornaliere | Obbligatorio | Base |
+| S1 — Scontrini | Opzionale | Behavioral |
+| S3 — Promozioni | Opzionale | Promotions |
+
+Il meteo è automatico — Winbi recupera i dati da Open-Meteo
+usando le coordinate dello store dopo l'onboarding.
+
+---
+
+## FILE: docs/quickstart.mdx
+
+---
+title: Quickstart
+description: Invia i tuoi primi dati in meno di 10 minuti
+---
+
+## Prerequisiti
+
+- API key Winbi (disponibile nel pannello account)
+- Python 3.8+ oppure qualsiasi client HTTP
+
+## Installazione SDK
+```bash
